@@ -1,5 +1,6 @@
 # Quill Guide
-💾 <version>v1.0</version>
+💾 <version>v1.1</version>
+👤 [Fabio Bonfiglio]()
 
 ## Installation
 Suivre la procédure [ici](https://github.com/dfinity/quill) (compiler ou [télécharger une bin](https://github.com/dfinity/quill/releases) déjà prête).
@@ -108,7 +109,7 @@ quill neuron-manage --pem-file $PEM_FILE --join-community-fund $NEURONID > /tmp/
 ```
 ---
 # Commandes terminal
-Ce guide suppose l'utilisation du terminal.  
+Ce guide suppose l'**utilisation du [terminal](https://www.youtube.com/watch?v=aKRYQsKR46I)**.  
 Pour ouvrir le terminal sur MacOS, appuyer sur `cmd`+`space` et taper `termial` et return.
 
 ## Commandes de base
