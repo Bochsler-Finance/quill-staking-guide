@@ -5,53 +5,12 @@
 Suivre la procédure [ici](https://github.com/dfinity/quill) (compiler ou [télécharger une bin](https://github.com/dfinity/quill/releases) déjà prête).
 
 ## Syntaxe complète
-Copiée de `quill --help`:
-```
-Ledger & Governance ToolKit for cold wallets
+Pour avoir un aperçu de la syntaxe complète et de toutes les commandes possibles, taper `quill --help`.
 
-USAGE:
-    quill-linux-x86_64 [OPTIONS] <SUBCOMMAND>
-
-OPTIONS:
-    -h, --help                         Print help information
-        --hsm                          
-        --hsm-id <HSM_ID>              
-        --hsm-libpath <HSM_LIBPATH>    
-        --hsm-slot <HSM_SLOT>          
-        --insecure-local-dev-mode      Fetches the root key before making requests so that
-                                       interfacing with local instances is possible. DO NOT USE WITH
-                                       ANY REAL INFORMATION
-        --pem-file <PEM_FILE>          Path to your PEM file (use "-" for STDIN)
-        --qr                           Output the result(s) as UTF-8 QR codes
-        --seed-file <SEED_FILE>        Path to your seed file (use "-" for STDIN)
-    -V, --version                      Print version information
-
-SUBCOMMANDS:
-    account-balance             Queries a ledger account balance
-    claim-neurons               Claim seed neurons from the Genesis Token Canister
-    generate                    Generate a mnemonic seed phrase and generate or recover PEM
-    get-neuron-info             
-    get-proposal-info           
-    help                        Print this message or the help of the given subcommand(s)
-    list-neurons                Signs the query for all neurons belonging to the signing
-                                    principal
-    list-proposals              
-    neuron-manage               Signs a neuron configuration change
-    neuron-stake                Signs topping up of a neuron (new or existing)
-    public-ids                  Prints the principal id and the account id
-    qr-code                     Print QR code for data e.g. principal id
-    replace-node-provider-id    Signs a message to replace Node Provide ID in targeted Node
-                                    Operator Record
-    scanner-qr-code             Print QR Scanner dapp QR code: scan to start dapp to submit QR
-                                    results
-    send                        Sends a signed message or a set of messages
-    transfer                    Signs an ICP transfer transaction
-    update-node-provider        Update node provider details
-```
 Pour chaque subcommand, on peut obtenir de l'aide supplémentaire, par exemple pour `send`, taper `quill send --help`.
 
 ## Principe
-Par exemple, pour demander la liste des neurones managés par une clé privée, taper la ligne suivante
+Par exemple, pour demander la liste des neurones managés par une clé privée, on tapera la ligne suivante
 ```bash
 quill --pem-file maClePrivee.pem list-neurons > /tmp/req.json && quill send --yes /tmp/req.json ; rm /tmp/req.json
 ```
@@ -82,18 +41,18 @@ NEURONID=<IDENT>
 Remplacer `<IDENT>` par le Neuron ID.
 
 ### Stake on a (new or existing) neuron
-> ⚠ Non testé !
-
 ```bash
-quill --pem-file $PEM_FILE neuron-stake --amount 42.2 --name neuron1 > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+quill neuron-stake --pem-file $PEM_FILE --amount 42.2 --name neuron1 > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
 ```
 Stakera 42.2 ICP sur le neuron nommé _neuron1_.
+
+> ⚠ Il y a par défaut 10000 e8s (0.01 ICP) de _fees_ pour staker. Donc s'il il n'y par exemple que 3 ICP (3000000 e8s) sur l'_account_, on ne pourra staker que **2.99 ICP** (2990000 e8s).
 
 ### Increase dissolve delay
 > ⚠ Non testé !
 
 ```bash
-quill --pem-file $PEM_FILE neuron-manage -a 15552000 $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+quill neuron-manage --pem-file $PEM_FILE -a 15552000 $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
 ```
 Ajoutera 6 mois (15'552'000 secondes) de dissolve delay au neuron.
 
@@ -106,14 +65,14 @@ For monitoring from (https://nns.ic0.app/) with another PrincipalID:
 > ⚠ Non testé !
 
 ```bash
-quill --pem-file $PEM_FILE neuron-manage --add-hot-key <PrincipalID> $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+quill neuron-manage --pem-file $PEM_FILE --add-hot-key <PrincipalID> $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
 ```
 
 ### Merge a neuron maturity
 > ⚠ Non testé !
 
 ```bash
-quill --pem-file $PEM_FILE neuron-manage --merge-maturity 100 $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+quill neuron-manage --pem-file $PEM_FILE --merge-maturity 100 $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
 ```
 Mergera 100% de la maturité dans le neuron.
 
@@ -121,7 +80,7 @@ Mergera 100% de la maturité dans le neuron.
 > ⚠ Non testé !
 
 ```bash
-quill --pem-file $PEM_FILE neuron-manage --merge-from-neuron <IDENT2> $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+quill neuron-manage --pem-file $PEM_FILE --merge-from-neuron <IDENT2> $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
 ```
 Remplacer `<IDENT2>` par le neuronID qui doit être mergé dans le neurone managé (variable `$NEURONID`).  
 Le stake entier, toute la maturité, ainsi que l'âge du neuron `<IDENT2>`, seront mergés.
@@ -130,14 +89,14 @@ Le stake entier, toute la maturité, ainsi que l'âge du neuron `<IDENT2>`, sero
 > ⚠ Non testé !
 
 ```bash
-quill --pem-file $PEM_FILE neuron-manage --spawn $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+quill neuron-manage --pem-file $PEM_FILE --spawn $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
 ```
 
 ### Split a neuron
 > ⚠ Non testé !
 
 ```bash
-quill --pem-file $PEM_FILE neuron-manage --split 12 $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+quill neuron-manage --pem-file $PEM_FILE --split 12 $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
 ```
 12 ICP seront splités du neuron spécifié, dans un nouveau neuron.
 
@@ -145,5 +104,44 @@ quill --pem-file $PEM_FILE neuron-manage --split 12 $NEURONID > /tmp/req.json &&
 > ⚠ Non testé !
 
 ```bash
-quill --pem-file $PEM_FILE neuron-manage --join-community-fund $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+quill neuron-manage --pem-file $PEM_FILE --join-community-fund $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+```
+---
+# Commandes terminal
+Ce guide suppose l'utilisation du terminal.  
+Pour ouvrir le terminal sur MacOS, appuyer sur `cmd`+`space` et taper `termial` et return.
+
+## Commandes de base
+En cas de besoin, une explication de chacune des commandes ci-dessous peut être obtenue avec `man`.
+Par exemple pour la commande `cp`, taper:
+```bash
+man cp
+```
+### Lister les fichiers et répertoires du répertoire courant
+```bash
+ls
+```
+### Aller dans un répertoire
+```bash
+cd nomRepertoire
+```
+### Revenir au répertoire parent
+```bash
+cd ..
+```
+### Copier un fichier
+```bash
+cp nomRepertoire/fichierAcopier repertoireDestination/
+```
+### Déplacer ou renommer un fichier
+```bash
+mv fichierSource repertoire/nouveauNom
+```
+### Afficher le contenu d'un fichier
+```bash
+less /tmp/req.json
+```
+ou s'il est petit et qu'on veut l'avoir afficher pendant qu'on tape la prochaine commande:
+```bash
+cat /tmp/req.json
 ```
