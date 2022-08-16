@@ -16,10 +16,10 @@ Pour chaque subcommand, on peut obtenir de l'aide supplémentaire, par exemple p
 ## Principe
 Par exemple, pour demander la liste des neurones managés par une clé privée, on tapera la ligne suivante
 ```bash
-quill --pem-file maClePrivee.pem list-neurons > /tmp/req.json && quill send --yes /tmp/req.json ; rm /tmp/req.json
+quill list-neurons --pem-file maClePrivee.pem > /tmp/req.json && quill send --yes /tmp/req.json ; rm /tmp/req.json
 ```
 Il y a en réalité 3 commandes qui sont exécutées:  
-1. `quill --pem-file $PEM_FILE list-neurons > /tmp/req.json`: Signe une transaction pour demander une liste des neurons managés pour la clé indiquée, et enregistre le résultat dans un fichier temporaire (`/tmp/req.json`).  
+1. `quill list-neurons --pem-file $PEM_FILE > /tmp/req.json`: Signe une transaction pour demander une liste des neurons managés pour la clé indiquée, et enregistre le résultat dans un fichier temporaire (`/tmp/req.json`).  
 2. `quill send --yes /tmp/req.json`: Envoie au résau la transaction signée, et ne demande pas de confirmation (option `--yes`) car c'est une opération peu risquée.  
 3. `rm /tmp/req.json`: Supprime immédiatement le fichier contenant la transaction signée, par sécurité.
 
