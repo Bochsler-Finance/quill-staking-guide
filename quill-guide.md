@@ -1,9 +1,9 @@
 ---
-version: 1.1
+version: 1.2
 author: Fabio Bonfiglio <fabio.bonfiglio@protonmail.com>
 ---
 # Quill Guide
-💾 <version>v1.1</version>
+💾 <version>v1.2</version>
 
 ## Installation
 Suivre la procédure [ici](https://github.com/dfinity/quill) (compiler ou [télécharger une bin](https://github.com/dfinity/quill/releases) déjà prête).
@@ -16,10 +16,10 @@ Pour chaque subcommand, on peut obtenir de l'aide supplémentaire, par exemple p
 ## Principe
 Par exemple, pour demander la liste des neurones managés par une clé privée, on tapera la ligne suivante
 ```bash
-quill list-neurons --pem-file maClePrivee.pem > /tmp/req.json && quill send --yes /tmp/req.json ; rm /tmp/req.json
+quill --pem-file maClePrivee.pem list-neurons > /tmp/req.json && quill send --yes /tmp/req.json ; rm /tmp/req.json
 ```
 Il y a en réalité 3 commandes qui sont exécutées:  
-1. `quill list-neurons --pem-file $PEM_FILE > /tmp/req.json`: Signe une transaction pour demander une liste des neurons managés pour la clé indiquée, et enregistre le résultat dans un fichier temporaire (`/tmp/req.json`).  
+1. `quill --pem-file $PEM_FILE list-neurons > /tmp/req.json`: Signe une transaction pour demander une liste des neurons managés pour la clé indiquée, et enregistre le résultat dans un fichier temporaire (`/tmp/req.json`).  
 2. `quill send --yes /tmp/req.json`: Envoie au résau la transaction signée, et ne demande pas de confirmation (option `--yes`) car c'est une opération peu risquée.  
 3. `rm /tmp/req.json`: Supprime immédiatement le fichier contenant la transaction signée, par sécurité.
 
@@ -46,7 +46,7 @@ Remplacer `<IDENT>` par le Neuron ID.
 
 ### Stake on a (new or existing) neuron
 ```bash
-quill neuron-stake --pem-file $PEM_FILE --amount 42.2 --name neuron1 > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+quill --pem-file $PEM_FILE neuron-stake --amount 42.2 --name neuron1 > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
 ```
 Stakera 42.2 ICP sur le neuron nommé _neuron1_.
 
@@ -56,7 +56,7 @@ Stakera 42.2 ICP sur le neuron nommé _neuron1_.
 > ⚠ Non testé !
 
 ```bash
-quill neuron-manage --pem-file $PEM_FILE -a 15552000 $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+quill --pem-file $PEM_FILE neuron-manage -a 15552000 $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
 ```
 Ajoutera 6 mois (15'552'000 secondes) de dissolve delay au neuron.
 
@@ -69,14 +69,14 @@ For monitoring from (https://nns.ic0.app/) with another PrincipalID:
 > ⚠ Non testé !
 
 ```bash
-quill neuron-manage --pem-file $PEM_FILE --add-hot-key <PrincipalID> $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+quill --pem-file $PEM_FILE neuron-manage --add-hot-key <PrincipalID> $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
 ```
 
 ### Merge a neuron maturity
 > ⚠ Non testé !
 
 ```bash
-quill neuron-manage --pem-file $PEM_FILE --merge-maturity 100 $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+quill --pem-file $PEM_FILE neuron-manage --merge-maturity 100 $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
 ```
 Mergera 100% de la maturité dans le neuron.
 
@@ -84,7 +84,7 @@ Mergera 100% de la maturité dans le neuron.
 > ⚠ Non testé !
 
 ```bash
-quill neuron-manage --pem-file $PEM_FILE --merge-from-neuron <IDENT2> $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+quill --pem-file $PEM_FILE neuron-manage --merge-from-neuron <IDENT2> $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
 ```
 Remplacer `<IDENT2>` par le neuronID qui doit être mergé dans le neurone managé (variable `$NEURONID`).  
 Le stake entier, toute la maturité, ainsi que l'âge du neuron `<IDENT2>`, seront mergés.
@@ -93,14 +93,14 @@ Le stake entier, toute la maturité, ainsi que l'âge du neuron `<IDENT2>`, sero
 > ⚠ Non testé !
 
 ```bash
-quill neuron-manage --pem-file $PEM_FILE --spawn $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+quill --pem-file $PEM_FILE neuron-manage --spawn $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
 ```
 
 ### Split a neuron
 > ⚠ Non testé !
 
 ```bash
-quill neuron-manage --pem-file $PEM_FILE --split 12 $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+quill --pem-file $PEM_FILE neuron-manage --split 12 $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
 ```
 12 ICP seront splités du neuron spécifié, dans un nouveau neuron.
 
@@ -108,12 +108,14 @@ quill neuron-manage --pem-file $PEM_FILE --split 12 $NEURONID > /tmp/req.json &&
 > ⚠ Non testé !
 
 ```bash
-quill neuron-manage --pem-file $PEM_FILE --join-community-fund $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+quill --pem-file $PEM_FILE neuron-manage --join-community-fund $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
 ```
 ---
 # Commandes terminal
 Ce guide suppose l'**utilisation du [terminal](https://www.youtube.com/watch?v=aKRYQsKR46I)**.  
-Pour ouvrir le terminal sur MacOS, appuyer sur `cmd`+`space` et taper `terminal` et return.
+Pour ouvrir le terminal sur MacOS, appuyer sur `cmd`+`space` et taper `terminal` et return.  
+Pour ouvrir le terminal sur Linux (Debian, Ubuntu, etc), taper `CTRL`+`ALT`+`T`.  
+Pour ouvrir le terminal sous Windows... désinstallez Windows et mettez-vous à Linux !  
 
 ## Commandes de base
 En cas de besoin, une explication de chacune des commandes ci-dessous peut être obtenue avec `man`.
