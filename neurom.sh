@@ -18,10 +18,10 @@ if [[ $NOKEY -eq 1 ]]; then
 fi
 #ls -1 *.pem | mapfile KEYFILES
 #ls -1 *.pem | read -ra KEYFILES
-ls -1 *.pem > files.txt && mapfile KEYFILES < files.txt && rm files.txt
+ls -1 *.pem > files.txt && mapfile -t KEYFILES < files.txt && rm files.txt
 printf "\n%s\n\n" "Private keys found:"
 for i in "${!KEYFILES[@]}"; do
-  printf "\t %s. %s" "$(($i+1))" "${KEYFILES[$i]}"
+  printf "\t %s. %s\n" "$(($i+1))" "${KEYFILES[$i]}"
 done
 if [[ ${#KEYFILES[@]} -gt 1 ]]; then
   RANGESTR="Type (1 - ${#KEYFILES[@]}) to select which one to use"
@@ -44,7 +44,8 @@ while [[ $VALIDENTRY -eq 0 ]]; do
 done
 ind=$(($keyf-1))
 KEYFILE=${KEYFILES[$ind]} && printf "\n%b\n" "Using \033[1m${KEYFILE}\033[0m"
-quill --pem-file ${KEYFILE} public-ids
+quill --pem-file $KEYFILE public-ids
 printf "\n%s\n" "Requesting neuron list..."
-quill --pem-file ${KEYFILE} list-neurons | quill send --yes - > neurons.txt
-cat neurons.txt | grep "neuron_infos"
+NEURONSFILE="${KEYFILE%.pem}_neurons.txt"
+quill --pem-file $KEYFILE list-neurons | quill send --yes - > "${NEURONSFILE}"
+cat $NEURONSFILE | grep "neuron_infos"
