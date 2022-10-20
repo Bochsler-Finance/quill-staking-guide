@@ -7,13 +7,23 @@ Build is realized with `pandoc`, directly from the CI pipeline.
 
 ## TODO
 Scenarios:
-- [ ] Stake a new neuron (and set delay)
-- [ ] Generate a hot-key for monitoring from (https://nns.ic0.app/)
-- [ ] Merge two neurons
-- [ ] Merge maturity from a neuron
-- [ ] Spawn a neuron from maturity
-- [ ] Split a neuron
-- [ ] Increase delay
-- [ ] Increase stake
-- [ ] Participate in community fund
+- [x] Stake a new neuron (and set delay)
+- [x] Generate a hot-key for monitoring from (https://nns.ic0.app/)
+- [x] Merge two neurons
+- [x] Merge maturity from a neuron
+- [x] Spawn a neuron from maturity
+- [x] Split a neuron
+- [x] Increase delay
+- [x] Increase stake
+- [x] Participate in community fund
 
+---
+# `neurom` helper script
+A simple command line script to help manage neurons from private key files.
+
+## Installation
+Copy `neurom.sh` in your local binary folder (for instance `~/.local/bin/` on Debian / Ubuntu), or in a custom `~/binaries/` folder and specify the PATH in your shell config file (`export PATH="${HOME}/binaries:${PATH}"`).
+
+## Usage
+Navigate to a folder containing private keys (`.pem` files), and execute `neurom`.  
+Follow the instructions given by the script.
