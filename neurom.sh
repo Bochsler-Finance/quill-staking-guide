@@ -24,13 +24,13 @@ for i in "${!KEYFILES[@]}"; do
   printf "\t %s. %s" "$(($i+1))" "${KEYFILES[$i]}"
 done
 if [[ ${#KEYFILES[@]} -gt 1 ]]; then
-  RANGESTR="(1 - ${#KEYFILES[@]})"
+  RANGESTR="Type (1 - ${#KEYFILES[@]}) to select which one to use"
 else
-  RANGESTR="(1)"
+  RANGESTR="Type 1 to use it"
 fi
 VALIDENTRY=0
 while [[ $VALIDENTRY -eq 0 ]]; do
-  printf "\n%s" "Select which one to use ${RANGESTR}, or CTRL+C to cancel: "
+  printf "\n%s" "${RANGESTR}, or CTRL+C to cancel: "
   read -rN 1 keyf
   if [[ $keyf =~ ([1-9]+) ]]; then
     if [[ $keyf -gt ${#KEYFILES[@]} ]]; then
