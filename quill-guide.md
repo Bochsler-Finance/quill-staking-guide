@@ -107,7 +107,7 @@ quill neuron-manage --pem-file $PEM_FILE --split 12 $NEURONID > /tmp/req.json &&
 ```bash
 quill neuron-manage --pem-file $PEM_FILE --disburse $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
 ```
-Retire la totalité du monté staké sur le neuron, dans l'account du propriétaire.
+Retire la totalité du montant staké sur le neuron, dans l'account du propriétaire.
 
 ### Participate in community fund
 ```bash
@@ -150,7 +150,7 @@ mv fichierSource repertoire/nouveauNom
 ```bash
 less /tmp/req.json
 ```
-ou s'il est petit et qu'on veut l'avoir afficher pendant qu'on tape la prochaine commande:
+ou s'il est petit et qu'on veut l'avoir affiché pendant qu'on tape la prochaine commande:
 ```bash
 cat /tmp/req.json
 ```
