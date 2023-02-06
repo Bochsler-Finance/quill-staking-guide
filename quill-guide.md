@@ -45,6 +45,12 @@ Pour gagner du temps, taper la commande suivante pour régler une variable conte
 ```bash
 PEM_FILE="cleprivee.pem"
 ```
+Ou si elle se trouve dans un autre répertoire que celui en cours:
+```bash
+PEM_FILE="chemin/vers/cleprivee.pem"
+```
+Par exemple si elle se trouve sur le bureau: `PEM_FILE="~/Desktop/cleprivee.pem"`.
+
 Et pour un neuron sur lequel on aimerait faire plusieurs opérations:
 ```bash
 NEURONID=<IDENT>
