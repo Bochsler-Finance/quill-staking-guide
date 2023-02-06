@@ -45,7 +45,7 @@ while [[ $VALIDENTRY -eq 0 ]]; do
 done
 ind=$(($keyf-1))
 KEYFILE=${KEYFILES[$ind]} && printf "\n%b\n" "Using \033[1m${KEYFILE}\033[0m"
-quill --pem-file $KEYFILE public-ids
+quill public-ids --pem-file $KEYFILE
 printf "\n%s\n" "Requesting neuron list..."
 NEURONSFILE="${KEYFILE%.pem}_neurons.txt"
 quill list-neurons --pem-file $KEYFILE  | quill send --yes - > "${NEURONSFILE}"
