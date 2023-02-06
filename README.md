@@ -3,7 +3,7 @@ This repository contains a simple guide with usual scenarios for [ICP staking](h
 
 ## Development environment
 The source code is a simple markdown file for now.  
-Build is realized with `pandoc`, ~~directly from the CI pipeline~~ (not yet!).
+Build is realized with `pandoc`, ~~directly from the CI pipeline~~ (not yet!) use the `./build.sh` command to render it in html.
 
 ## TODO
 Scenarios:
