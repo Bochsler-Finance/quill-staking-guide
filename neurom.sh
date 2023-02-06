@@ -1,13 +1,14 @@
 #!/bin/bash
 : '
-This script is a helper for Quill v0.2.17.
-It has been developed on bash 5.1.16. MacOS is known to have an outdated version
+This script is a helper for Quill v0.3.2.
+It has been developed on bash 5.1.16.
+MacOS is known to have an outdated version
 of bash (v3.2.57 on Catalina), so please inform the author if you notice bad
 behaviour or an outcome that seem incorrect.
 
 See https://github.com/dfinity/quill for more informations about quill.
 '
-VERSION="0.1.0"
+VERSION="0.1.1"
 AUTHOR="Fabio Bonfiglio <fabio.bonfiglio@protonmail.ch>"
 
 printf "%b\n" "'\033[1mneurom\033[0m' v${VERSION} - helper neuron manager script for \033[1mquill\033[0m, by ${AUTHOR}"
@@ -47,5 +48,6 @@ KEYFILE=${KEYFILES[$ind]} && printf "\n%b\n" "Using \033[1m${KEYFILE}\033[0m"
 quill --pem-file $KEYFILE public-ids
 printf "\n%s\n" "Requesting neuron list..."
 NEURONSFILE="${KEYFILE%.pem}_neurons.txt"
-quill --pem-file $KEYFILE list-neurons | quill send --yes - > "${NEURONSFILE}"
+quill list-neurons --pem-file $KEYFILE  | quill send --yes - > "${NEURONSFILE}"
 cat $NEURONSFILE | grep "neuron_infos"
+# TBC (remove cat and parse received reply to list neuron ids)
