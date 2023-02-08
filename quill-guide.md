@@ -1,9 +1,9 @@
 ---
-version: 1.3
+version: 1.31
 author: Fabio Bonfiglio <fabio.bonfiglio@protonmail.com>
 ---
 # Quill Guide
-💾 <version>v1.3</version> pour [`quill` **v0.3.2**](https://github.com/dfinity/quill/releases/tag/v0.3.2)
+💾 <version>v1.31</version> pour [`quill` **v0.3.2**](https://github.com/dfinity/quill/releases/tag/v0.3.2)
 
 ## Installation
 Suivre la procédure [ici](https://github.com/dfinity/quill) (compiler ou [télécharger une bin](https://github.com/dfinity/quill/releases/tag/v0.3.2) déjà prête).
@@ -49,7 +49,7 @@ Ou si elle se trouve dans un autre répertoire que celui en cours:
 ```bash
 PEM_FILE="chemin/vers/cleprivee.pem"
 ```
-Par exemple si elle se trouve sur le bureau: `PEM_FILE="~/Desktop/cleprivee.pem"`.
+Par exemple si elle se trouve sur le bureau: `PEM_FILE="Desktop/cleprivee.pem"`.
 
 Et pour un neuron sur lequel on aimerait faire plusieurs opérations:
 ```bash
@@ -109,11 +109,35 @@ quill neuron-manage --pem-file $PEM_FILE --split 12 $NEURONID > /tmp/req.json &&
 ```
 12 ICP seront splités du neuron spécifié, dans un nouveau neuron.
 
+### Dissolve a neuron
+```bash
+quill neuron-manage --pem-file $PEM_FILE --start-dissolving $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+```
+
+### Stop dissolving
+```bash
+quill neuron-manage --pem-file $PEM_FILE --stop-dissolving $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+```
+
 ### Disburse staked ammount
 ```bash
 quill neuron-manage --pem-file $PEM_FILE --disburse $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
 ```
 Retire la totalité du montant staké sur le neuron, dans l'account du propriétaire.
+
+### Transfer disbursed
+D'abord régler le montant à transférer, en prévoyant qu'il reste au moins 0.0001 ICP pour les fees:
+```bash
+AMOUNT=42.20000000
+```
+Puis l'accountID de destination:
+```bash
+DESTINATION=f8e0c2801a59b4b53a3b4e5424bbdff2b99f4b36cb41a64b7419850a79e8a94f
+```
+Et exécuter la commande suiante: 
+```bash
+quill transfer --pem-file $PEM_FILE --amount $AMOUNT $DESTINATION > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+```
 
 ### Participate in community fund
 ```bash
