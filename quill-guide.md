@@ -1,6 +1,7 @@
 ---
 version: 1.31
-author: Fabio Bonfiglio <fabio.bonfiglio@protonmail.com>
+author: Fabio Bonfiglio <fabio@bochslerfinance.com>
+copyright: Copyright (C) 2023 Bochsler Finance SA
 ---
 # Quill Guide
 💾 <version>v1.31</version> pour [`quill` **v0.3.2**](https://github.com/dfinity/quill/releases/tag/v0.3.2)

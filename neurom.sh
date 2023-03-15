@@ -7,9 +7,27 @@ of bash (v3.2.57 on Catalina), so please inform the author if you notice bad
 behaviour or an outcome that seem incorrect.
 
 See https://github.com/dfinity/quill for more informations about quill.
+
+Copyright (C) 2023 Bochsler Finance SA
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '
 VERSION="0.1.1"
-AUTHOR="Fabio Bonfiglio <fabio.bonfiglio@protonmail.ch>"
+AUTHOR="Fabio Bonfiglio <fabio@bochslerfinance.com>"
+
+echo "neurom (Quill Scripted Guide),  Copyright (C) 2023  Bochsler Finance SA"
+echo "This is free software, and you are welcome to redistribute it."
 
 printf "%b\n" "'\033[1mneurom\033[0m' v${VERSION} - helper neuron manager script for \033[1mquill\033[0m, by ${AUTHOR}"
 ls *.pem &> /dev/null || NOKEY=1
