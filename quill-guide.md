@@ -1,10 +1,10 @@
 ---
-version: 1.31
+version: 1.32
 author: Fabio Bonfiglio <fabio@bochslerfinance.com>
 copyright: Copyright (C) 2023 Bochsler Finance SA
 ---
 # Quill Guide
-💾 <version>v1.31</version> pour [`quill` **v0.3.2**](https://github.com/dfinity/quill/releases/tag/v0.3.2)
+💾 <version>v1.32</version> pour [`quill` **v0.3.2**](https://github.com/dfinity/quill/releases/tag/v0.3.2)
 
 ## Installation
 Suivre la procédure [ici](https://github.com/dfinity/quill) (compiler ou [télécharger une bin](https://github.com/dfinity/quill/releases/tag/v0.3.2) déjà prête).
@@ -93,10 +93,10 @@ Mergera 100% de la maturité dans le neuron.
 
 ### Merge two neurons
 ```bash
-quill neuron-manage --pem-file $PEM_FILE --merge-from-neuron <IDENT2> $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
+quill neuron-manage --pem-file $PEM_FILE --merge-from-neuron $NEURONID <IDENT2> > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
 ```
-Remplacer `<IDENT2>` par le neuronID qui doit être mergé dans le neurone managé (variable `$NEURONID`).  
-Le stake entier, toute la maturité, ainsi que l'âge du neuron `<IDENT2>`, seront mergés.
+Remplacer `<IDENT2>` par le neuronID vers lequel devrait être mergé le neurone managé (variable `$NEURONID`).  
+Le stake entier, toute la maturité, ainsi que l'âge du neuron `$NEURONID`, seront mergés dans `<IDENT2>`.
 
 ### Spawn a neuron from maturity
 ```bash
