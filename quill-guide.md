@@ -17,10 +17,10 @@ Pour chaque subcommand, on peut obtenir de l'aide supplémentaire, par exemple p
 ## Principe
 Par exemple, pour demander la liste des neurones managés par une clé privée, on tapera la ligne suivante
 ```bash
-quill list-neurons --pem-file maClePrivee.pem > /tmp/req.json && quill send --yes /tmp/req.json ; rm /tmp/req.json
+quill list-neurons --pem-file $PEM_FILE > /tmp/req.json && quill send --yes /tmp/req.json ; rm /tmp/req.json
 ```
 Il y a en réalité 3 commandes qui sont exécutées:  
-1. `quill list-neurons --pem-file maClePrivee.pem  > /tmp/req.json`: Signe une transaction pour demander une liste des neurons managés pour la clé indiquée, et enregistre le résultat dans un fichier temporaire (`/tmp/req.json`).  
+1. `quill list-neurons --pem-file $PEM_FILE  > /tmp/req.json`: Signe une transaction pour demander une liste des neurons managés pour la clé indiquée, et enregistre le résultat dans un fichier temporaire (`/tmp/req.json`).  
 2. `quill send --yes /tmp/req.json`: Envoie au résau la transaction signée, et ne demande pas de confirmation (option `--yes`) car c'est une opération peu risquée.  
 3. `rm /tmp/req.json`: Supprime immédiatement le fichier contenant la transaction signée, par sécurité.
 
@@ -33,7 +33,7 @@ L'opérateur `&&`, qui est entre les deux premières commandes, sert à indiquer
 ### Variante _pipe_
 Au lieu de passer par un fichier intermédiaire contenant la transaction signée, on peut directement la passer à la commande `send` ainsi (à l'aide de l'opérateur [`|`](https://en.wikipedia.org/wiki/Pipeline_(Unix))):
 ```bash
-quill list-neurons --pem-file maClePrivee.pem | quill send --yes -
+quill list-neurons --pem-file $PEM_FILE | quill send --yes -
 ```
 > ℹ Les deux solutions ont leurs avantages et inconvénients en termes de sécurité. Elles sont cependant toutes deux relativement sûres, et dans le cas d'un ordinateur connecté directement au réseau, la variante _pipe_ est plus rapide, mais supprime une étape qui sert également à éviter des erreurs.
 
