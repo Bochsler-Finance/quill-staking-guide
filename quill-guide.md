@@ -145,6 +145,16 @@ Et exécuter la commande suiante:
 quill transfer --pem-file $PEM_FILE --amount $AMOUNT $DESTINATION > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
 ```
 
+### Check account balance
+D'abord récupérer l'account ID ainsi:
+```bash
+quill public-ids --pem-file $PEM_FILE
+```
+Puis copier-coller l'account ID à la place de `<accountID>` dans la commande suivante:
+```bash
+quill account-balance --pem-file $PEM_FILE --yes <accountID>
+```
+
 ### Participate in community fund
 ```bash
 quill neuron-manage --pem-file $PEM_FILE --join-community-fund $NEURONID > /tmp/req.json && quill send /tmp/req.json ; rm /tmp/req.json
